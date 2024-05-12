@@ -11,7 +11,7 @@ export const revalidate = 0;
 
 export async function GET() {
     try {
-        connectToDB();
+        await connectToDB();
 
         const products = await Product.find({});
 
@@ -53,14 +53,14 @@ export async function GET() {
 
                 const emailContent = await generateEmailBody(productInfo, emailNotifType);
 
-                const userEmails = updatedProduct.user.map((user: any) => user.email)
+                const userEmails = updatedProduct.user.map((user: any) => user.email);
 
                 await sendEmail(emailContent, userEmails);
             }
 
-                return updatedProduct
+                return updatedProduct;
             })
-        )
+        );
 
         return NextResponse.json({
             message: 'Ok', data: updatedProducts
